@@ -15,13 +15,13 @@ class ImgHelper
     private static $product_path = "uploads/products/";
 
     /**
-     * @param string $path
+     * @param  $path
      * @param string $name
      * @param int $width
      * @param int $quality
      * @return null|string
      */
-    public static function saveProductPhoto(string $path, string $name, $width = 500, $quality = 60){
+    public static function saveProductPhoto( $path, string $name, $width = 500, $quality = 60){
         $img = Image::make($path)->widen($width)->save(self::$product_path.$name, $quality);
         unset($img);
         self::getProductPhotoPath($name);
