@@ -16,6 +16,7 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['namespace' => 'api', 'prefix' => 'api'], function () use($router){
-    $router->get('/products', 'BaseController@test');
+$router->group(['namespace' => 'api', 'prefix' => 'api', 'middleware' => 'cors'], function () use($router){
+    $router->get('/products', 'BaseController@products');
+    $router->get('/test', 'BaseController@test');
 });

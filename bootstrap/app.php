@@ -23,7 +23,9 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
+ $app->withFacades(true, [
+     \Intervention\Image\Facades\Image::class => 'Image'
+ ]);
 
 // $app->withEloquent();
 
@@ -66,7 +68,9 @@ $app->singleton(
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
-
+$app->routeMiddleware([
+    'cors' => App\Http\Middleware\CorsMiddleware::class
+]);
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers
@@ -82,7 +86,7 @@ $app->singleton(
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
  $app->register(App\Providers\AgentServiceProvider::class);
-
+$app->register(Intervention\Image\ImageServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
