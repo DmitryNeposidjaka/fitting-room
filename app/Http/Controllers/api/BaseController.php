@@ -41,7 +41,6 @@ class BaseController extends Controller
             }
 
         }
-        echo json_encode($result);
-    //    var_dump($products);
+        return json_encode($result);
     }
 }
