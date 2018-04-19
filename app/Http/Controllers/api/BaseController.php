@@ -44,8 +44,7 @@ class BaseController extends Controller
                     if(ImgHelper::productPhotoExists(basename($image))){
                         $result_product->images[$k] = url(ImgHelper::getProductPhotoPath(basename($image)));
                     }else{
-                        $file = file_get_contents($image);
-                        $base64Image = (base64_encode($file))? $file : base64_decode($file);
+                        $base64Image = (base64_encode($image))? $image : base64_decode($image);
                         $result_product->images[$k] = url(ImgHelper::saveProductPhoto($base64Image, basename($image)));
                     }
                 }
