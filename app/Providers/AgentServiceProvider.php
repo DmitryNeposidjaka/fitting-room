@@ -16,7 +16,7 @@ class AgentServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(Agent::class, function ($app) {
-            return new Agent(['conf_path' => '/home/vagrant/code/app/Components/Agent/config.php']);
+            return new Agent(['conf_path' => dirname(__DIR__).'/Components/Agent/config.php']);
         });
     }
 }
