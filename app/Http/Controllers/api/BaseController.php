@@ -28,22 +28,20 @@ class BaseController extends Controller
          */
         $instance = app(Agent::class);
         $products = $instance->getProducts();
-        $categories = $instance->getCategories();
+        $conf_cats = config('api.categories');
 
         $result = [];
         foreach ($products as $product){
             foreach ($product->categories as $category){
                 $cat_id = $category->id;
-
-                $cat = current(array_filter($categories, function ($v) use($cat_id){
-                    return $v->id === $cat_id;
-                }));
-
-                $result[$cat->title][] = $product;
+                if (!isset($conf_cats[$cat_id])) continue;
+                $result_product = $product;
+                unset($result_product->categories);
+                $result[$conf_cats[$cat_id]][] = $result_product;
             }
 
         }
-        var_dump($result);
-        var_dump($products);
+        echo json_encode($result);
+    //    var_dump($products);
     }
 }
