@@ -23,7 +23,17 @@ class BaseController extends Controller
         //
     }
 
+    private function measurements($data){
+        $result = [];
+        foreach ($data as $measurement){
+            if(!isset($measurement->pivot)) continue;
+            $pivot = $measurement->pivot;
+            $title = $measurement->title;
+            $result[$pivot->size_id][$title] = $pivot->value;
+        }
 
+        return $result;
+    }
     public function products(){
         /**
          * @var $instance Agent
@@ -44,10 +54,12 @@ class BaseController extends Controller
                     if(ImgHelper::productPhotoExists(basename($image))){
                         $result_product->images[$k] = url(ImgHelper::getProductPhotoPath(basename($image)));
                     }else{
+
                         $base64Image = (base64_encode($image))? $image : base64_decode($image);
                         $result_product->images[$k] = url(ImgHelper::saveProductPhoto($base64Image, basename($image)));
                     }
                 }
+                $result_product->measurements = $this->measurements($result_product->measurements);
                 $result[$conf_cats[$cat_id]][] = $result_product;
             }
 
