@@ -12,6 +12,7 @@ namespace App\Components\Agent;
 interface DriverInterface
 {
     public function getServer();
+    public function auth($login, $pass);
     public function getProducts() ;
     public function getCategories() ;
 }

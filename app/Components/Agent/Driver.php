@@ -9,8 +9,6 @@
 namespace App\Components\Agent;
 
 
-use App\Components\Agent\Client;
-
 class Driver implements DriverInterface
 {
     public $server;
@@ -31,7 +29,8 @@ class Driver implements DriverInterface
         if(empty($options['server'])) throw new \ErrorException('Server must be Set!');
         if(isset($options['mirrors'])) $this->mirrors = $options['mirrors'];
         $this->server = $options['server'];
-        $this->client = new $options['client'](['baseUrl' => $this->server, 'timeout' => 5]);
+        $this->server = $options['mirrors'];
+        $this->client = new $options['client'](['baseUrl' => $this->server, 'timeout' => 5, 'mirrors' => $this->mirrors]);
         $this->formatter = new$options['formatter'];
         if(!($this->client instanceof ClientInterface)) throw new \ErrorException('Client must be an instance of ClientInterface!');
         if(!($this->formatter instanceof FormatterInterface)) throw new \ErrorException('Formatter must be an instance of FormatterInterface!');
@@ -53,7 +52,17 @@ class Driver implements DriverInterface
 
     public function checkStatus($status)
     {
-        return true;
+        return true;        //  TODO check status function
+    }
+
+    public function auth($login, $pass)
+    {
+        return $this->client->auth($login, $pass);
+    }
+
+    public function authSoc($provider, $id)
+    {
+        return $this->client->authSoc($provider, $id);
     }
 
     public function getProducts()

@@ -12,6 +12,7 @@ namespace App\Components\Agent;
 class Client implements ClientInterface
 {
     public $baseUrl;
+    public $mirrors;
     /**
      * @var \GuzzleHttp\Client
      */
@@ -21,6 +22,34 @@ class Client implements ClientInterface
     {
         $this->client = new \GuzzleHttp\Client($options);
         $this->setBaseUrl($options['baseUrl']);
+        $this->setMirrors($options['mirrors']);
+    }
+
+    public function auth($login, $pass)
+    {
+        $response = $this->client->request('POST', array_shift($this->mirrors)."auth", [
+            'headers' => [
+                'X-Security-Token' => 'test',
+            ],
+            'json' => [
+                'type' => 'login',
+                'email' => $login,
+                'password' => $pass,
+            ],
+        ]);
+        return $response;
+    }
+
+    public function authSoc($provider, $id)
+    {
+        $response = $this->client->request('POST', "{$this->baseUrl}auth", [
+            ['json' => [
+                'type' => 'social',
+                'provider' => $provider,
+                'user_id' => $id,
+            ]]
+        ]);
+        return $response;
     }
 
     public function getProducts()
@@ -48,7 +77,10 @@ class Client implements ClientInterface
         $this->baseUrl = $url;
     }
 
-
+    public function setMirrors(array $data)
+    {
+        $this->mirrors = $data;
+    }
 
 
 }

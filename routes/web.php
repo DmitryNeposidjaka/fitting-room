@@ -20,3 +20,11 @@ $router->group(['namespace' => 'api', 'prefix' => 'api', 'middleware' => 'cors']
     $router->get('/products', 'BaseController@products');
     $router->get('/test', 'BaseController@test');
 });
+
+$router->group(['namespace' => 'api', 'middleware' => 'cors'], function () use($router){
+
+    $router->post('/auth', 'AuthController@auth');
+    $router->get('/auth', function (){
+        return view('auth', ['result' => null]);
+    });
+});

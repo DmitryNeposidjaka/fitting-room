@@ -19,7 +19,16 @@ class Agent
     public function __construct(array $config = [])
     {
         $this->configer = new Configer($config);
-        $this-> drivers = $this->initDrivers();
+        $this->drivers = $this->initDrivers();
+    }
+
+    /**
+     * @param string $driver
+     * @return DriverInterface|null
+     */
+    public function getDriver($driver)
+    {
+        return (array_key_exists($driver, $this->drivers))? $this->drivers[$driver] : null;
     }
 
     public function getProducts(){

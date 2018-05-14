@@ -6,7 +6,9 @@ return [
             'client' => \App\Components\Agent\Client::class,
             'formatter' => \App\Components\Agent\Formatter::class,
             'server' => 'https://tamir.ua/api/',
-            'mirrors' => [],
+            'mirrors' => [
+                'https://tamir.ua/app/'
+            ],
         ],
     ]
 ];
