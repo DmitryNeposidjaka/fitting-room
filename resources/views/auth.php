@@ -47,7 +47,7 @@
 
 <div>
     <?php
-    if($result->getStatusCode() == 200){
+    if($result && $result->getStatusCode() == 200){
         var_dump($result->getBody()->getContents());
     }
     ?>

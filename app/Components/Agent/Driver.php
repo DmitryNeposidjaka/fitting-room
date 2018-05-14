@@ -29,7 +29,7 @@ class Driver implements DriverInterface
         if(empty($options['server'])) throw new \ErrorException('Server must be Set!');
         if(isset($options['mirrors'])) $this->mirrors = $options['mirrors'];
         $this->server = $options['server'];
-        $this->server = $options['mirrors'];
+        $this->mirrors = $options['mirrors'];
         $this->client = new $options['client'](['baseUrl' => $this->server, 'timeout' => 5, 'mirrors' => $this->mirrors]);
         $this->formatter = new$options['formatter'];
         if(!($this->client instanceof ClientInterface)) throw new \ErrorException('Client must be an instance of ClientInterface!');
