@@ -9,6 +9,8 @@
 namespace App\Components\Agent;
 
 
+use App\models\UserRegistration;
+
 class Client implements ClientInterface
 {
     public $baseUrl;
@@ -23,6 +25,22 @@ class Client implements ClientInterface
         $this->client = new \GuzzleHttp\Client($options);
         $this->setBaseUrl($options['baseUrl']);
         $this->setMirrors($options['mirrors']);
+    }
+
+    public function registration(UserRegistration $model)
+    {
+        $response = $this->client->request('POST', array_shift($this->mirrors)."customer/register", [
+            'headers' => [
+                'X-Security-Token' => 'test',
+            ],
+            'form_params' => [
+                'email' => $model->email,
+                'name' => $model->name,
+                'phone' => $model->phone,
+                'password' => $model->password,
+            ],
+        ]);
+        return $response;
     }
 
     public function auth($login, $pass)

@@ -9,6 +9,8 @@
 namespace App\Components\Agent;
 
 
+use App\models\UserRegistration;
+
 class Driver implements DriverInterface
 {
     public $server;
@@ -53,6 +55,11 @@ class Driver implements DriverInterface
     public function checkStatus($status)
     {
         return true;        //  TODO check status function
+    }
+
+    public function registration(UserRegistration $model)
+    {
+        return $this->client->registration($model);
     }
 
     public function auth($login, $pass)

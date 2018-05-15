@@ -24,7 +24,11 @@ $router->group(['namespace' => 'api', 'prefix' => 'api', 'middleware' => 'cors']
 $router->group(['namespace' => 'api', 'middleware' => 'cors'], function () use($router){
 
     $router->post('/auth', 'AuthController@auth');
+    $router->post('/registration', 'AuthController@registration');
     $router->get('/auth', function (){
         return view('auth', ['result' => null]);
+    });
+    $router->get('/registration', function (){
+        return view('registration', ['result' => null]);
     });
 });
