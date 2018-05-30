@@ -9,6 +9,8 @@
 namespace App\Components\Agent;
 
 
+use App\models\Customer;
+use App\models\Order;
 use App\models\UserRegistration;
 
 class Driver implements DriverInterface
@@ -92,5 +94,40 @@ class Driver implements DriverInterface
         }
 
         return $this->formatter::categories($response->getBody());
+    }
+
+    public function getCustomerData($customer_token)
+    {
+        return $this->client->getCustomerData($customer_token);
+    }
+
+    public function getCustomerOrders($customer_token)
+    {
+        return $this->client->getCustomerOrders($customer_token);
+    }
+
+    public function getCartToken($customer_token)
+    {
+        return $this->client->getCartToken($customer_token);
+    }
+
+    public function getCart($cart_token, $customer_token)
+    {
+        return $this->client->getCart($cart_token, $customer_token);
+    }
+
+    public function addOrder($cart_token, $customer_token, Order $model)
+    {
+        return $this->client->addOrder($cart_token, $customer_token, $model);
+    }
+
+    public function removeOrder($cart_token, $customer_token, Order $model)
+    {
+        return $this->client->removeOrder($cart_token, $customer_token, $model);
+    }
+
+    public function processingOrder($cart_token = null, $customer_token, Customer $model = null)
+    {
+        return $this->client->processingOrder($cart_token, $customer_token, $model);
     }
 }

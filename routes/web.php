@@ -19,6 +19,13 @@ $router->get('/', function () use ($router) {
 $router->group(['namespace' => 'api', 'prefix' => 'api', 'middleware' => 'cors'], function () use($router){
     $router->get('/products', 'BaseController@products');
     $router->get('/test', 'BaseController@test');
+    $router->get('/customer/data', 'CustomerController@getData');
+    $router->get('/customer/orders', 'CustomerController@getOrders');
+    $router->get('/cart/token', 'CartController@getToken');
+    $router->get('/cart', 'CartController@getCart');
+    $router->post('/cart/processing', 'CartController@toProcess');
+    $router->post('/order', 'CartController@add');
+    $router->delete('/order', 'CartController@delete');
 });
 
 $router->group(['namespace' => 'api', 'middleware' => 'cors'], function () use($router){
