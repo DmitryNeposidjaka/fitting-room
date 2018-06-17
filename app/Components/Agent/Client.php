@@ -57,7 +57,7 @@ class Client implements ClientInterface
      */
     public function auth($login, $pass)
     {
-        $response = $this->client->request('POST', array_shift($this->mirrors)."auth", [
+        $response = $this->client->request('POST', array_shift($this->mirrors)."customer/auth", [
             'headers' => [
                 'x-security-token' => self::SECURITY_TOKEN,
             ],
@@ -77,7 +77,7 @@ class Client implements ClientInterface
      */
     public function authSoc($provider, $id)
     {
-        $response = $this->client->request('POST', "{$this->baseUrl}auth", [
+        $response = $this->client->request('POST', "{$this->baseUrl}customer/auth", [
             ['json' => [
                 'type' => 'social',
                 'provider' => $provider,
