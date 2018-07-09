@@ -28,7 +28,7 @@ $router->group(['namespace' => 'api', 'prefix' => 'api', 'middleware' => 'cors']
     $router->delete('/order', 'CartController@delete');
 });
 
-$router->group(['namespace' => 'api', 'middleware' => 'cors'], function () use($router){
+$router->group(['namespace' => 'api', 'middleware' => ['cors']], function () use($router){
 
     $router->post('/auth', 'AuthController@auth');
     $router->post('/registration', 'AuthController@registration');
