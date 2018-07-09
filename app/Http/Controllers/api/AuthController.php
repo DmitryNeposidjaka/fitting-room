@@ -31,8 +31,8 @@ class AuthController extends Controller
         ]);
 
         $result = $this->agent->getDriver('defaultDriver')->auth($request->input('login'), $request->input('pass'));
-
-        return view('auth', ['result' => $result]);
+        return $result;
+    //    return view('auth', ['result' => $result]);
     }
 
     public function registration(Request $request)
@@ -51,7 +51,7 @@ class AuthController extends Controller
         $model->password = $request->input('password');
 
         $result = $this->agent->getDriver('defaultDriver')->registration($model);
-
-        return view('auth', ['result' => $result]);
+        return $result;
+    //    return view('auth', ['result' => $result]);
     }
 }

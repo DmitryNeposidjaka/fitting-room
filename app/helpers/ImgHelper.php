@@ -22,8 +22,13 @@ class ImgHelper
      * @return null|string
      */
     public static function saveProductPhoto( $path, string $name, $width = 500, $quality = 60){
-        $img = Image::make($path)->widen($width)->save(self::$product_path.$name, $quality);
-        unset($img);
+        try{
+            $img = Image::make($path)->widen($width)->save(self::$product_path.$name, $quality);
+            unset($img);
+        }catch (\Exception $e){
+            // TODO добавить логгирование
+            self::getProviderImgPath($path);
+        }
         self::getProductPhotoPath($name);
     }
 
@@ -45,5 +50,9 @@ class ImgHelper
         }else{
             return null;
         }
+    }
+
+    public static function getProviderImgPath($path){
+        return $path;
     }
 }
