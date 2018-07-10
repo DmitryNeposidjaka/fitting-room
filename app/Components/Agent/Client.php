@@ -80,6 +80,9 @@ class Client implements ClientInterface
     public function authSoc($provider, $id)
     {
         $response = $this->client->request('POST', "{$this->baseUrl}customer/auth", [
+            'headers' => [
+                'x-security-token' => self::SECURITY_TOKEN,
+            ],
             ['json' => [
                 'type' => 'social',
                 'provider' => $provider,
