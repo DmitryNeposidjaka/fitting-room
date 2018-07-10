@@ -46,7 +46,6 @@ class Client implements ClientInterface
                 'phone' => $model->phone,
                 'password' => $model->password,
             ],
-            'debug' => true,
             'http_errors' => false
         ];
         $response = $this->client->request('POST', array_shift($this->mirrors)."customer/register", $options);
