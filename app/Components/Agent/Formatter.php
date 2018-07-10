@@ -22,12 +22,15 @@ class Formatter implements FormatterInterface
     {
         switch ($data->getStatusCode()){
             case 201:
-                $response = $data->getBody()->getContents();
+                $response = [
+                    'message' => 'Created',
+                    'data'    => json_decode($data->getBody()->getContents())
+                ];
                 break;
             case 409:
                 $response = [
                     'message' => 'User already Exist!',
-                    'data'    => $data->getBody()->getContents()
+                    'data'    => json_decode($data->getBody()->getContents())
                 ];
                 break;
             case 500:
