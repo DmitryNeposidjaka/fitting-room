@@ -48,6 +48,36 @@ class Formatter implements FormatterInterface
         return $response;
     }
 
+    public static function auth(Response $data): array
+    {
+        switch ($data->getStatusCode()){
+            case 200:
+                $response = [
+                    'message' => 'Authorized',
+                    'data'    => json_decode($data->getBody()->getContents())
+                ];
+                break;
+            case 409:
+                $response = [
+                    'message' => 'User already Exist!',
+                    'data'    => json_decode($data->getBody()->getContents())
+                ];
+                break;
+            case 500:
+                $response = [
+                    'message' => 'some Error!',
+                    'data'    => [
+                        'status' => $data->getStatusCode(),
+                        'body'   => $data->getBody()->getContents()
+                    ]
+                ];
+                break;
+            default: $response = [];
+        }
+
+        return $response;
+    }
+
     public static function categories($data): array
     {
         return json_decode($data);
