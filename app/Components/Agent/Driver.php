@@ -71,7 +71,7 @@ class Driver implements DriverInterface
 
     public function authSoc($provider, $id)
     {
-        return $this->client->authSoc($provider, $id);
+        return $this->formatter::auth($this->client->authSoc($provider, $id));
     }
 
     public function getProducts()

@@ -35,6 +35,18 @@ class AuthController extends Controller
     //    return view('auth', ['result' => $result]);
     }
 
+    public function authSoc(Request $request)
+    {
+        $this->validate($request, [
+            'provider'  => 'required|max:40',
+            'id'        => 'required|max:100',
+        ]);
+
+        $result = $this->agent->getDriver('defaultDriver')->authSoc($request->input('provider'), $request->input('id'));
+        return $result;
+    //    return view('auth', ['result' => $result]);
+    }
+
     public function registration(Request $request)
     {
         $this->validate($request, [
