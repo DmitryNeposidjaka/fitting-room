@@ -36,7 +36,7 @@ class Client implements ClientInterface
      */
     public function registration(UserRegistration $model)
     {
-        $response = $this->client->request('POST', array_shift($this->mirrors)."customer/register", [
+        $options = [
             'headers' => [
                 'x-security-token' => self::SECURITY_TOKEN,
             ],
@@ -46,7 +46,9 @@ class Client implements ClientInterface
                 'phone' => $model->phone,
                 'password' => $model->password,
             ],
-        ]);
+        ];
+        $response = $this->client->request('POST', array_shift($this->mirrors)."customer/register", $options);
+
         return $response;
     }
 

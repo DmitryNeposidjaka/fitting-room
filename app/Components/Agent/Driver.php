@@ -61,7 +61,7 @@ class Driver implements DriverInterface
 
     public function registration(UserRegistration $model)
     {
-        return $this->client->registration($model);
+        return $this->formatter::registration($this->client->registration($model));
     }
 
     public function auth($login, $pass)
