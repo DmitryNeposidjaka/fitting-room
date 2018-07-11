@@ -83,4 +83,42 @@ class Formatter implements FormatterInterface
         return json_decode($data);
     }
 
+    public static function cartToken(Response $data){
+        $result = null;
+        if($data->getStatusCode() == 200){
+            $result = $data->getBody()->getContents();
+        }
+        return $result;
+    }
+
+    public static function cart(Response $data){
+        $result = null;
+        if($data->getStatusCode() == 200){
+            $result = $data->getBody()->getContents();
+        }
+        return $result;
+    }
+
+    public static function addOrder(Response $data){
+        $result = null;
+        if($data->getStatusCode() == 200){
+            $result = $data->getBody()->getContents();
+        }
+        return $result;
+    }
+
+    public static function removeOrder(Response $data){
+        $result = null;
+        if($data->getStatusCode() == 200){
+            $result = $data->getBody()->getContents();
+        }
+        return $result;
+    }
+    public static function processingOrder(Response $data){
+        $result = null;
+        if($data->getStatusCode() == 200){
+            $result = $data->getBody()->getContents();
+        }
+        return $result;
+    }
 }

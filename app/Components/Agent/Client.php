@@ -185,7 +185,7 @@ class Client implements ClientInterface
                 'x-cart-token' => $cart_token,
                 'x-customer-token' => $customer_token,
             ],
-            'form_params' => [
+            'json' => [
                 'product_id' => $model->product_id,  //  ID товара
                 'growth_id' => $model->growth_id,    //  ID роста
                 'size_id' => $model->size_id,     //  ID размера
@@ -202,13 +202,13 @@ class Client implements ClientInterface
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
     public function removeOrder($cart_token, $customer_token, Order $model){
-        $response = $this->client->request('POST', array_shift($this->mirrors)."cart/remove-item", [
+        $response = $this->client->request('DELETE', array_shift($this->mirrors)."cart/remove-item", [
             'headers' => [
                 'x-security-token' => self::SECURITY_TOKEN,
                 'x-cart-token' => $cart_token,
                 'x-customer-token' => $customer_token,
             ],
-            'form_params' => [
+            'json' => [
                 'product_id' => $model->product_id,
                 'growth_id' => $model->growth_id,
                 'size_id' => $model->size_id,
@@ -233,11 +233,11 @@ class Client implements ClientInterface
             $customer_data['phone'] = $model->phone;
         }
         $headers['x-security-token'] = self::SECURITY_TOKEN;
-        $headers['x-customer-token'] = $customer_token;
+        $headers['x-cart-token'] = $cart_token;
         if(!is_null($model)){
-            $headers['x-cart-token'] = $cart_token;
+            $headers['x-customer-token'] = $customer_token;
         }
-        $response = $this->client->request('POST', array_shift($this->mirrors)."cart/remove-item", [
+        $response = $this->client->request('POST', array_shift($this->mirrors)."cart/order", [
             'headers' => $headers,
             'form_params' => $customer_data,
         ]);

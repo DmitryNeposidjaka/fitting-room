@@ -27,11 +27,15 @@ class CartController extends Controller
     }
 
     public function getToken(Request $request){
-        return $this->agent->getCartToken();
+        $token = $request->header('X-Customer-Token');
+
+        return $this->agent->getCartToken($token);
     }
 
     public function getCart(Request $request){
-        return $this->agent->getCart();
+        $cartToken = $request->header('X-Cart-Token');
+        $customerToken = $request->header('X-Customer-Token');
+        return $this->agent->getCart($cartToken, $customerToken);
     }
 
     public function toProcess(Request $request){
@@ -53,7 +57,7 @@ class CartController extends Controller
         $model->size_id = $request->input('size_id');
         $model->amount = $request->input('amount');
 
-        return $this->agent->removeOrder($request->header('x-cart-token'), $request->header('x-customer-token'), $model);
+        return $this->agent->addOrder($request->header('x-cart-token'), $request->header('x-customer-token'), $model);
     }
 
     public function delete(Request $request){

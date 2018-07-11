@@ -108,26 +108,26 @@ class Driver implements DriverInterface
 
     public function getCartToken($customer_token)
     {
-        return $this->client->getCartToken($customer_token);
+        return $this->formatter::cartToken($this->client->getCartToken($customer_token));
     }
 
     public function getCart($cart_token, $customer_token)
     {
-        return $this->client->getCart($cart_token, $customer_token);
+        return $this->formatter::cart($this->client->getCart($cart_token, $customer_token));
     }
 
     public function addOrder($cart_token, $customer_token, Order $model)
     {
-        return $this->client->addOrder($cart_token, $customer_token, $model);
+        return $this->formatter::addOrder($this->client->addOrder($cart_token, $customer_token, $model));
     }
 
     public function removeOrder($cart_token, $customer_token, Order $model)
     {
-        return $this->client->removeOrder($cart_token, $customer_token, $model);
+        return $this->formatter::removeOrder($this->client->removeOrder($cart_token, $customer_token, $model));
     }
 
     public function processingOrder($cart_token = null, $customer_token, Customer $model = null)
     {
-        return $this->client->processingOrder($cart_token, $customer_token, $model);
+        return $this->formatter::processingOrder($this->client->processingOrder($cart_token, $customer_token, $model));
     }
 }
