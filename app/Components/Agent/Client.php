@@ -79,9 +79,9 @@ class Client implements ClientInterface
      */
     public function authSoc($provider, $id)
     {
-        $response = $this->client->request('POST', "{$this->baseUrl}customer/auth", [
+        $response = $this->client->request('POST', array_shift($this->mirrors)."customer/auth", [
             'headers' => [
-                'x-security-token' => self::SECURITY_TOKEN,
+                'X-Security-Token' => self::SECURITY_TOKEN,
             ],
             'json' => [
                 'type' => 'social',
