@@ -83,11 +83,11 @@ class Client implements ClientInterface
             'headers' => [
                 'x-security-token' => self::SECURITY_TOKEN,
             ],
-            ['json' => [
+            'json' => [
                 'type' => 'social',
                 'provider' => $provider,
                 'user_id' => $id,
-            ]]
+            ]
         ]);
         return $response;
     }
