@@ -9,6 +9,7 @@
 namespace App\Components\Agent;
 
 
+use App\models\Customer;
 use App\models\Order;
 use App\models\UserRegistration;
 
@@ -241,6 +242,20 @@ class Client implements ClientInterface
             'headers' => $headers,
             'form_params' => $customer_data,
         ]);
+        return $response;
+    }
+
+    public function updateCustomerData($customer_token, Customer $model){
+
+        $response = $this->client->request('POST', array_shift($this->mirrors)."customer/edit", [
+            'headers' => [
+                'x-security-token' => self::SECURITY_TOKEN,
+                'x-customer-token' => $customer_token,
+            ],
+            'json' => array_diff($model->toArray(), [null]),
+            'http_errors' => false
+        ]);
+
         return $response;
     }
 

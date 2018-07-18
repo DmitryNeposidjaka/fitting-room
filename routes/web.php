@@ -20,6 +20,7 @@ $router->group(['namespace' => 'api', 'prefix' => 'api', 'middleware' => 'cors']
     $router->get('/products', 'BaseController@products');
     $router->get('/test', 'BaseController@test');
     $router->get('/customer/data', 'CustomerController@getData');
+    $router->patch('/customer/data', 'CustomerController@updateData');
     $router->get('/customer/orders', 'CustomerController@getOrders');
     $router->get('/cart/token', 'CartController@getToken');
     $router->get('/cart', 'CartController@getCart');

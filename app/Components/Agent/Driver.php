@@ -98,7 +98,12 @@ class Driver implements DriverInterface
 
     public function getCustomerData($customer_token)
     {
-        return $this->client->getCustomerData($customer_token);
+        return $this->formatter::getCustomerData($this->client->getCustomerData($customer_token));
+    }
+
+    public function updateCustomerData($customer_token, Customer $model)
+    {
+        return $this->formatter::updateCustomerData($this->client->updateCustomerData($customer_token, $model));
     }
 
     public function getCustomerOrders($customer_token)

@@ -91,6 +91,20 @@ class Formatter implements FormatterInterface
         return $result;
     }
 
+    public static function getCustomerData(Response $data){
+        $result = null;
+        $result['status'] = $data->getStatusCode();
+        $result['data'] = $data->getBody()->getContents();
+        return $result;
+    }
+
+    public static function updateCustomerData(Response $data){
+        $result = null;
+        $result['status'] = $data->getStatusCode();
+        $result['data'] = $data->getBody()->getContents();
+        return $result;
+    }
+
     public static function cart(Response $data){
         $result = null;
         if($data->getStatusCode() == 200){
