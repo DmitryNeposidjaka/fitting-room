@@ -43,6 +43,7 @@ class CustomerController extends Controller
     }
 
     public function getOrders(Request $request){
-        return $this->agent->getCustomerOrders();
+        $response = $this->agent->getCustomerOrders($request->header('x-customer-token'));
+        return new Response($response->getBody()->getContents(), $response->getStatusCode());
     }
 }
