@@ -30,6 +30,7 @@ class BaseController extends Controller
             $pivot = $measurement->pivot;
             $title = $measurement->title;
             $result[$pivot->size_id][$title] = $pivot->value;
+            if(!empty($pivot->growth_id)) $result[$pivot->size_id]['growth_id'] = $pivot->growth_id;
         }
 
         return $result;

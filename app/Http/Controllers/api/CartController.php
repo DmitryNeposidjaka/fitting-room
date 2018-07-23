@@ -45,9 +45,9 @@ class CartController extends Controller
 
     public function add(Request $request){
         $this->validate($request, [
-            'product_id'    => 'required|numeric',
-            'growth_id'     => 'required|numeric',
-            'size_id'       => 'required|numeric',
+            'product_id'    => 'required|string',
+            'growth_id'     => 'required|string',
+            'size_id'       => 'required|string',
             'amount'        => 'required|numeric',
         ]);
 
@@ -57,7 +57,8 @@ class CartController extends Controller
         $model->size_id = $request->input('size_id');
         $model->amount = $request->input('amount');
 
-        return $this->agent->addOrder($request->header('x-cart-token'), $request->header('x-customer-token'), $model);
+        $response = $this->agent->addOrder($request->header('x-cart-token'), $request->header('x-customer-token'), $model);
+        return new Response($response->getBody()->getContents(), $response->getStatusCode());
     }
 
     public function delete(Request $request){

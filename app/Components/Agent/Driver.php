@@ -123,7 +123,7 @@ class Driver implements DriverInterface
 
     public function addOrder($cart_token, $customer_token, Order $model)
     {
-        return $this->formatter::addOrder($this->client->addOrder($cart_token, $customer_token, $model));
+        return $this->client->addOrder($cart_token, $customer_token, $model);
     }
 
     public function removeOrder($cart_token, $customer_token, Order $model)

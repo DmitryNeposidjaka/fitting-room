@@ -165,13 +165,15 @@ class Client implements ClientInterface
     public function getCart($cart_token, $customer_token){
         $response = $this->client->request('GET', array_shift($this->mirrors)."cart", [
             'headers' => [
-                'x-security-token' => self::SECURITY_TOKEN,
-                'x-cart-token' => $cart_token,
-                'x-customer-token' => $customer_token,
+                'X-Cart-Token' => $cart_token,
+                'X-Customer-Token' => $customer_token,
+                'X-Security-Token' => self::SECURITY_TOKEN,
             ],
+            'verify' => false
         ]);
         return $response;
     }
+
 
     /**
      * @param $cart_token
