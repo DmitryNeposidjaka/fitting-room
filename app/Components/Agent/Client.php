@@ -165,11 +165,10 @@ class Client implements ClientInterface
     public function getCart($cart_token, $customer_token){
         $response = $this->client->request('GET', array_shift($this->mirrors)."cart", [
             'headers' => [
-                'X-Cart-Token' => $cart_token,
-                'X-Customer-Token' => $customer_token,
-                'X-Security-Token' => self::SECURITY_TOKEN,
+                'x-security-token' => self::SECURITY_TOKEN,
+                'x-customer-token' => $customer_token,
+                'x-cart-token' => $cart_token,
             ],
-            'verify' => false
         ]);
         return $response;
     }
@@ -230,20 +229,21 @@ class Client implements ClientInterface
     public function processingOrder($cart_token = null, $customer_token, Customer $model = null){
         $customer_data = [];
         $headers = [];
+        $headers['x-security-token'] = self::SECURITY_TOKEN;
+        $headers['x-cart-token'] = $cart_token;
+        $data = ['headers' => $headers];
+
+        if(!is_null($model)){
+            $headers['x-customer-token'] = $customer_token;
+        }
+
         if(!is_null($model)){
             $customer_data['name'] = $model->name;
             $customer_data['email'] = $model->email;
             $customer_data['phone'] = $model->phone;
+            $data = array_merge($data, ['form_params' => $customer_data]);
         }
-        $headers['x-security-token'] = self::SECURITY_TOKEN;
-        $headers['x-cart-token'] = $cart_token;
-        if(!is_null($model)){
-            $headers['x-customer-token'] = $customer_token;
-        }
-        $response = $this->client->request('POST', array_shift($this->mirrors)."cart/order", [
-            'headers' => $headers,
-            'form_params' => $customer_data,
-        ]);
+        $response = $this->client->request('POST', array_shift($this->mirrors)."cart/order", $data);
         return $response;
     }
 

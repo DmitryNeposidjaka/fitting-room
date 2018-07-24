@@ -13,6 +13,7 @@ use App\Components\Agent\Agent;
 use App\Http\Controllers\Controller;
 use App\models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CartController extends Controller
 {
@@ -35,12 +36,15 @@ class CartController extends Controller
     public function getCart(Request $request){
         $cartToken = $request->header('X-Cart-Token');
         $customerToken = $request->header('X-Customer-Token');
-        return $this->agent->getCart($cartToken, $customerToken);
+        $response = $this->agent->getCart($cartToken, $customerToken);
+        return new Response($response->getBody()->getContents(), $response->getStatusCode());
     }
 
     public function toProcess(Request $request){
 
-        return $this->agent->processingOrder();
+        $model = null;
+        $response = $this->agent->processingOrder($request->header('x-cart-token'), $request->header('x-customer-token'), $model);
+        return new Response($response->getBody()->getContents(), $response->getStatusCode());
     }
 
     public function add(Request $request){
@@ -63,9 +67,9 @@ class CartController extends Controller
 
     public function delete(Request $request){
         $this->validate($request, [
-            'product_id'    => 'required|numeric',
-            'growth_id'     => 'required|numeric',
-            'size_id'       => 'required|numeric',
+            'product_id'    => 'required|string',
+            'growth_id'     => 'required|string',
+            'size_id'       => 'required|string',
             'amount'        => 'required|numeric',
         ]);
 
@@ -75,6 +79,7 @@ class CartController extends Controller
         $model->size_id = $request->input('size_id');
         $model->amount = $request->input('amount');
 
-        return $this->agent->removeOrder($request->header('x-cart-token'), $request->header('x-customer-token'), $model);
+        $response = $this->agent->removeOrder($request->header('x-cart-token'), $request->header('x-customer-token'), $model);
+        return new Response($response->getBody()->getContents(), $response->getStatusCode());
     }
 }
