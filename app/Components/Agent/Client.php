@@ -248,13 +248,12 @@ class Client implements ClientInterface
     }
 
     public function updateCustomerData($customer_token, Customer $model){
-
         $response = $this->client->request('POST', array_shift($this->mirrors)."customer/edit", [
             'headers' => [
                 'x-security-token' => self::SECURITY_TOKEN,
                 'x-customer-token' => $customer_token,
             ],
-            'json' => array_diff($model->toArray(), [null]),
+            'json' => array_filter( $model->toArray()),
             'http_errors' => false
         ]);
 
