@@ -183,6 +183,19 @@ class Client implements ClientInterface
         return $response;
     }
 
+    public function addCatalog($cart_token, $product_id){
+        $response = $this->client->request('POST', array_shift($this->mirrors)."catalog/viewed", [
+            'headers' => [
+                'x-security-token' => self::SECURITY_TOKEN,
+                'x-cart-token' => $cart_token,
+            ],
+            'json' => [
+                'product_id' => $product_id
+            ],
+        ]);
+        return $response;
+    }
+
 
     /**
      * @param $cart_token
