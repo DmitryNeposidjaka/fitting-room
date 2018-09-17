@@ -121,6 +121,11 @@ class Driver implements DriverInterface
         return $this->client->getCart($cart_token, $customer_token);
     }
 
+    public function getCatalog($cart_token)
+    {
+        return $this->client->getCatalog($cart_token);
+    }
+
     public function addOrder($cart_token, $customer_token, Order $model)
     {
         return $this->client->addOrder($cart_token, $customer_token, $model);

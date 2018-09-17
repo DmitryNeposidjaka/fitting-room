@@ -27,6 +27,7 @@ $router->group(['namespace' => 'api', 'prefix' => 'api', 'middleware' => 'cors']
     $router->post('/cart/processing', 'CartController@toProcess');
     $router->post('/order', 'CartController@add');
     $router->delete('/order', 'CartController@delete');
+    $router->get('/catalog', 'CartController@catalog');
 });
 
 $router->group(['namespace' => 'api', 'middleware' => ['cors']], function () use($router){

@@ -46,4 +46,9 @@ class CustomerController extends Controller
         $response = $this->agent->getCustomerOrders($request->header('x-customer-token'));
         return new Response($response->getBody()->getContents(), $response->getStatusCode());
     }
+
+    public function catalog(Request $request){
+        $response = $this->agent->getCatalog($request->header('x-cart-token'));
+        return new Response($response->getBody()->getContents(), $response->getStatusCode());
+    }
 }
