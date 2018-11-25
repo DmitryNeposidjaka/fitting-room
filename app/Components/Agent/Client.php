@@ -254,11 +254,8 @@ class Client implements ClientInterface
         $headers = [];
         $headers['x-security-token'] = self::SECURITY_TOKEN;
         $headers['x-cart-token'] = $cart_token;
+        $headers['x-customer-token'] = $customer_token;
         $data = ['headers' => $headers];
-
-        if(!is_null($model)){
-            $headers['x-customer-token'] = $customer_token;
-        }
 
         if(!is_null($model)){
             $customer_data['name'] = $model->name;

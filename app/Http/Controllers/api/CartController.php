@@ -11,6 +11,7 @@ namespace App\Http\Controllers\api;
 
 use App\Components\Agent\Agent;
 use App\Http\Controllers\Controller;
+use App\models\Customer;
 use App\models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -40,9 +41,13 @@ class CartController extends Controller
         return new Response($response->getBody()->getContents(), $response->getStatusCode());
     }
 
-    public function toProcess(Request $request){
-
-        $model = null;
+    public function toProcess(Request $request, $model = null){
+        if($request->hasHeader('x-customer-token')){
+            $model = new Customer();
+            $model->name = $request->input('name');
+            $model->phone = $request->input('phone');
+            $model->email = $request->input('email');
+        }
         $response = $this->agent->processingOrder($request->header('x-cart-token'), $request->header('x-customer-token'), $model);
         return new Response($response->getBody()->getContents(), $response->getStatusCode());
     }
