@@ -29,7 +29,7 @@ $router->group(['namespace' => 'api', 'prefix' => 'api', 'middleware' => 'cors']
     $router->delete('/order', 'CartController@delete');
     $router->get('/catalog', 'CustomerController@catalog');
     $router->post('/catalog', 'CustomerController@addCatalog');
-    $router->post('/password/email', 'CustomerController@email');
+    $router->get('/password/email', 'CustomerController@email');
 });
 
 $router->group(['namespace' => 'api', 'middleware' => ['cors']], function () use($router){
