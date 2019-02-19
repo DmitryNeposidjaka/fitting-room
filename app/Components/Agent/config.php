@@ -7,7 +7,8 @@ return [
             'formatter' => \App\Components\Agent\Formatter::class,
             'server' => 'https://tamir.ua/api/',
             'mirrors' => [
-                'https://tamir.ua/app/'
+                'https://tamir.ua/app/',
+                'https://tamir.ua/'
             ],
         ],
     ]

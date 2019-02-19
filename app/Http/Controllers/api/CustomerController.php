@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dima
- * Date: 30.05.18
- * Time: 16:52
- */
 
 namespace App\Http\Controllers\api;
 
@@ -28,7 +22,8 @@ class CustomerController extends Controller
         $this->agent = $agent->getDriver('defaultDriver');
     }
 
-    public function getData(Request $request){
+    public function getData(Request $request)
+    {
         $response = $this->agent->getCustomerData($request->header('x-customer-token'));
         return new Response($response['data'], $response['status']);
     }
@@ -42,18 +37,27 @@ class CustomerController extends Controller
         return new Response($response['data'], $response['status']);
     }
 
-    public function getOrders(Request $request){
+    public function getOrders(Request $request)
+    {
         $response = $this->agent->getCustomerOrders($request->header('x-customer-token'));
         return new Response($response->getBody()->getContents(), $response->getStatusCode());
     }
 
-    public function catalog(Request $request){
+    public function catalog(Request $request)
+    {
         $response = $this->agent->getCatalog($request->header('x-cart-token'));
         return new Response($response->getBody()->getContents(), $response->getStatusCode());
     }
 
-    public function addCatalog(Request $request){
+    public function addCatalog(Request $request)
+    {
         $response = $this->agent->addCatalog($request->header('x-cart-token'), $request->input('product'));
+        return new Response($response->getBody()->getContents(), $response->getStatusCode());
+    }
+
+    public function email(Request $request)
+    {
+        $response = $this->agent->rememberEmail($request->input('email'));
         return new Response($response->getBody()->getContents(), $response->getStatusCode());
     }
 }

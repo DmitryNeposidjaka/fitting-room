@@ -196,6 +196,19 @@ class Client implements ClientInterface
         return $response;
     }
 
+    public function rememberEmail($email){
+        $response = $this->client->request('POST', $this->mirrors[1]."password/email", [
+            /*'headers' => [
+                'x-security-token' => self::SECURITY_TOKEN,
+                'x-cart-token' => $cart_token,
+            ],*/
+            'json' => [
+                'email' => $email
+            ],
+        ]);
+        return $response;
+    }
+
 
     /**
      * @param $cart_token
