@@ -27,6 +27,10 @@ class Customer
      */
     public $phone;
     /**
+     * @var string 01.01.1972
+     */
+    public $birthday;
+    /**
      * @var string
      */
     public $password;
