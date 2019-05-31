@@ -62,14 +62,16 @@ $app->singleton(
 */
 
  $app->middleware([
-     App\Http\Middleware\CorsMiddleware::class
+     App\Http\Middleware\CorsMiddleware::class,
+     \Barryvdh\Cors\HandleCors::class,
  ]);
 
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
 $app->routeMiddleware([
-    'cors' => App\Http\Middleware\CorsMiddleware::class
+    // ...
+    'cors' => \Barryvdh\Cors\HandleCors::class,
 ]);
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +89,7 @@ $app->routeMiddleware([
 // $app->register(App\Providers\EventServiceProvider::class);
  $app->register(App\Providers\AgentServiceProvider::class);
 $app->register(Intervention\Image\ImageServiceProvider::class);
+$app->register(Barryvdh\Cors\ServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
@@ -103,6 +106,6 @@ $app->router->group([
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
 });
-
+$app->configure('cors');
 $app->configure('api');
 return $app;
