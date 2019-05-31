@@ -20,9 +20,9 @@ class CorsMiddleware
             'Access-Control-Allow-Methods'     => 'POST, GET, OPTIONS, PUT, DELETE, PATCH',
             'Access-Control-Allow-Credentials' => 'true',
             'Access-Control-Max-Age'           => '86400',
-            'Access-Control-Allow-Headers'     => 'Content-Type, Authorization, X-Requested-With, X-Customer-Token, X-Cart-Token'
+            'Access-Control-Allow-Headers'     => 'Content-Length, Referer, Accept-Encoding, Cookie, Accept, User-Agent, Postman-Token, Cache-Control, Connection, X-Forwarded-Port, X-Forwarded-Proto, Host'
         ];
-
+        //['Content-Length', 'Referer', 'Accept-Encoding', 'Cookie', 'Accept', 'User-Agent', 'Postman-Token', 'Cache-Control', 'Connection', 'X-Forwarded-Port', 'X-Forwarded-Proto', 'Host']
 
         if ($request->isMethod('OPTIONS'))
         {
