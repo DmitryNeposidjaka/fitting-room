@@ -75,6 +75,7 @@ $app->middleware([
 // ]);
 $app->routeMiddleware([
     'cors' => \Barryvdh\Cors\HandleCors::class,
+    'cors2' => \App\Http\Middleware\CorsMiddleware::class,
 ]);
 /*
 |--------------------------------------------------------------------------
