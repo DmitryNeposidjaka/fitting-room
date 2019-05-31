@@ -63,7 +63,7 @@ $app->singleton(
 
  $app->middleware([
      App\Http\Middleware\CorsMiddleware::class,
-     \Barryvdh\Cors\HandleCors::class,
+     Nord\Lumen\Cors\CorsMiddleware::class,
  ]);
 
 // $app->routeMiddleware([
@@ -87,9 +87,10 @@ $app->routeMiddleware([
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
- $app->register(App\Providers\AgentServiceProvider::class);
+$app->register(App\Providers\AgentServiceProvider::class);
 $app->register(Intervention\Image\ImageServiceProvider::class);
 $app->register(Barryvdh\Cors\ServiceProvider::class);
+$app->register(Nord\Lumen\Cors\CorsServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
