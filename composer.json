@@ -10,8 +10,7 @@
         "vlucas/phpdotenv": "~2.2",
         "guzzlehttp/guzzle": "^6.3",
         "intervention/image": "^2.4",
-        "barryvdh/laravel-cors": "^0.11.3",
-        "nordsoftware/lumen-cors": "^3.1"
+        "palanik/lumen-cors": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
