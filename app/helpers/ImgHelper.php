@@ -8,6 +8,7 @@
 
 namespace App\helpers;
 
+use Illuminate\Support\Facades\Log;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class ImgHelper
@@ -23,11 +24,11 @@ class ImgHelper
      */
     public static function saveProductPhoto( $path, string $name, $width = 500, $quality = 60){
         try{
-            $img = Image::make($path)->widen($width)->save(self::$product_path.$name, $quality);
+            $img = Image::make($path)->widen($width)->save(PUBLIC_DIR.'/'.self::$product_path.$name, $quality);
             unset($img);
         }catch (\Exception $e){
-            // TODO добавить логгирование
-            self::getProviderImgPath($path);
+            Log::info(sprintf("\n\nSeve product photo fail!\n%s", self::getProviderImgPath($path)));
+            throw $e;
         }
         self::getProductPhotoPath($name);
     }
